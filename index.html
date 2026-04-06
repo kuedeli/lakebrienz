@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hiking in Bernese Oberland - Lake Brienz trails, Iseltwald, Brienz villages. Book guided tours with local host.">
+    <title>Brienz Trails • Hiking Lake Brienz &amp; Bernese Oberland</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Playfair+Display:wght@700&amp;display=swap');
+        
+        :root {
+            --tw-color-primary: #0f766e;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        .tailwind-ready {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Playfair Display', sans-serif;
+        }
+
+        .hero-bg {
+            background: linear-gradient(rgba(15, 118, 110, 0.75), rgba(15, 118, 110, 0.85)), url('https://picsum.photos/id/1015/2000/1200') center/cover no-repeat;
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -12px rgb(15 118 110);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #0f766e;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .modal {
+            animation: modalPop 0.3s ease forwards;
+        }
+        
+        @keyframes modalPop {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="tailwind-ready">
+    <!-- NAVBAR -->
+    <nav class="bg-white border-b sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-teal-700 rounded-2xl flex items-center justify-center text-white text-2xl">🏔️</div>
+                    <h1 class="heading-font text-3xl tracking-tight text-teal-900">Brienz Trails</h1>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a href="#routes" onclick="document.getElementById('routes').scrollIntoView({behavior:'smooth'})" class="nav-link text-teal-800 hover:text-teal-700">Routes</a>
+                    <a href="#villages" onclick="document.getElementById('villages').scrollIntoView({behavior:'smooth'})" class="nav-link text-teal-800 hover:text-teal-700">Villages</a>
+                    <a href="#book" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})" class="nav-link text-teal-800 hover:text-teal-700">Book a Tour</a>
+                    <a href="#tips" onclick="document.getElementById('tips').scrollIntoView({behavior:'smooth'})" class="nav-link text-teal-800 hover:text-teal-700">Hiking Tips</a>
+                    <a href="#" class="bg-teal-700 hover:bg-teal-800 text-white px-5 py-2 rounded-3xl text-sm font-semibold flex items-center gap-x-2">
+                        <i class="fa-solid fa-mountain-sun"></i>
+                        LIVE WEBCAM
+                    </a>
+                </div>
+                
+                <!-- Right side -->
+                <div class="flex items-center gap-x-4">
+                    <div class="text-xs bg-teal-100 text-teal-800 px-3 py-1 rounded-3xl font-medium flex items-center">
+                        <span class="relative flex h-3 w-3 mr-1">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-teal-500"></span>
+                        </span>
+                        12°C • Sunny
+                    </div>
+                    
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-2xl text-teal-800">
+                        <i class="fa-solid fa-bars" id="menu-icon"></i>
+                    </button>
+                    
+                    <a href="#book" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})" 
+                       class="hidden sm:flex items-center bg-teal-700 hover:bg-teal-800 text-white px-6 py-3 rounded-3xl text-sm font-semibold">
+                        <i class="fa-solid fa-calendar mr-2"></i>
+                        BOOK NOW
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden bg-white border-t py-4 px-6 flex flex-col gap-y-4 text-teal-800">
+                <a href="#routes" onclick="document.getElementById('routes').scrollIntoView({behavior:'smooth'});toggleMobileMenu()" class="flex items-center py-3 font-medium">🏞️ Hiking Routes</a>
+                <a href="#villages" onclick="document.getElementById('villages').scrollIntoView({behavior:'smooth'});toggleMobileMenu()" class="flex items-center py-3 font-medium">🏘️ Lake Brienz Villages</a>
+                <a href="#book" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'});toggleMobileMenu()" class="flex items-center py-3 font-medium">🧭 Book Guided Tour</a>
+                <a href="#tips" onclick="document.getElementById('tips').scrollIntoView({behavior:'smooth'});toggleMobileMenu()" class="flex items-center py-3 font-medium">💡 Pro Tips</a>
+                <div class="pt-4 border-t">
+                    <a href="#book" onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'});toggleMobileMenu()" 
+                       class="block w-full text-center bg-teal-700 text-white py-4 rounded-3xl font-semibold">BOOK YOUR HIKE TODAY</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero-bg h-screen flex items-center text-white">
+        <div class="max-w-7xl mx-auto px-6 pt-16">
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center gap-x-2 bg-white/20 backdrop-blur-md text-white text-sm font-medium px-5 py-2 rounded-3xl mb-6">
+                    <i class="fa-solid fa-location-dot"></i>
+                    BERNese OBERLAND • LAKE BRIENZ
+                </div>
+                
+                <h1 class="heading-font text-6xl md:text-7xl leading-none font-bold tracking-tighter mb-6">
+                    Hike the most beautiful shores<br>of Lake Brienz
+                </h1>
+                
+                <p class="text-xl md:text-2xl mb-10 text-teal-100 max-w-md">
+                    From Iseltwald to Brienz and beyond. Guided tours, hidden trails, and Swiss mountain magic.
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <a onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})" 
+                       class="flex-1 md:flex-none bg-white text-teal-800 hover:bg-amber-200 font-semibold text-lg px-10 py-6 rounded-3xl flex items-center justify-center gap-x-3 shadow-xl">
+                        <i class="fa-solid fa-arrow-right"></i>
+                        BOOK GUIDED TOUR
+                    </a>
+                    
+                    <a onclick="document.getElementById('routes').scrollIntoView({behavior:'smooth'})" 
+                       class="flex-1 md:flex-none border-2 border-white hover:bg-white hover:text-teal-800 font-medium text-lg px-8 py-6 rounded-3xl flex items-center justify-center">
+                        SEE ALL ROUTES
+                    </a>
+                </div>
+                
+                <div class="mt-12 flex items-center gap-x-8 text-sm">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-star text-amber-400 mr-1"></i>
+                        <span class="font-semibold">4.98</span>
+                        <span class="ml-2 text-teal-100">(184 reviews)</span>
+                    </div>
+                    <div class="h-3 w-px bg-white/30"></div>
+                    <div>🏔️ 8 routes • Iseltwald focus</div>
+                    <div class="h-3 w-px bg-white/30"></div>
+                    <div class="flex -space-x-4">
+                        <div class="w-6 h-6 bg-teal-300 rounded-2xl flex items-center justify-center text-xs ring-2 ring-white">🇨🇭</div>
+                        <div class="w-6 h-6 bg-amber-300 rounded-2xl flex items-center justify-center text-xs ring-2 ring-white">🌲</div>
+                    </div>
+                    <p class="text-teal-100">Local host • Small groups only</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating badge -->
+        <div class="hidden xl:flex absolute bottom-12 right-12 bg-white text-teal-900 rounded-3xl px-6 py-4 shadow-2xl flex-col items-end">
+            <div class="flex items-center text-sm font-medium mb-1">
+                NEXT AVAILABLE
+                <span class="ml-auto bg-green-400 w-2 h-2 rounded-full animate-pulse"></span>
+            </div>
+            <div class="text-3xl font-semibold">Tomorrow • 9:00</div>
+            <div class="text-teal-600">Iseltwald Lakeside Hike</div>
+        </div>
+    </header>
+
+    <!-- TRUST BAR -->
+    <div class="bg-white py-6 border-b">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-3 md:grid-cols-6 gap-6 text-center items-center">
+            <div class="flex flex-col items-center">
+                <i class="fa-solid fa-shield-halved text-3xl text-teal-600 mb-2"></i>
+                <p class="text-xs font-medium">100% LOCAL GUIDES</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <i class="fa-solid fa-leaf text-3xl text-emerald-600 mb-2"></i>
+                <p class="text-xs font-medium">ECO-FRIENDLY</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <i class="fa-solid fa-person-hiking text-3xl text-amber-600 mb-2"></i>
+                <p class="text-xs font-medium">ALL LEVELS</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <i class="fa-solid fa-mountain text-3xl text-slate-700 mb-2"></i>
+                <p class="text-xs font-medium">BERNESE OBERLAND</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <i class="fa-solid fa-utensils text-3xl text-orange-500 mb-2"></i>
+                <p class="text-xs font-medium">BREAKFAST + LUNCH OPTIONS</p>
+            </div>
+            <div class="flex flex-col items-center">
+                <i class="fa-solid fa-clock text-3xl text-purple-600 mb-2"></i>
+                <p class="text-xs font-medium">4–6 HOUR TOURS</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- VILLAGES HIGHLIGHT -->
+    <section id="villages" class="max-w-7xl mx-auto px-6 py-16">
+        <div class="flex flex-col md:flex-row gap-8 items-end mb-12">
+            <div class="flex-1">
+                <span class="uppercase text-teal-600 text-sm font-semibold tracking-widest">ICONIC VILLAGES AROUND LAKE BRIENZ</span>
+                <h2 class="heading-font text-5xl font-bold text-teal-900">Where Swiss fairytales come alive</h2>
+            </div>
+            <p class="max-w-md text-lg text-slate-600">Iseltwald, Brienz, Ringgenberg, and more — each village offers its own unique hiking experience right on the lake.</p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <!-- Village 1 -->
+            <div class="group bg-white rounded-3xl overflow-hidden shadow-sm card-hover">
+                <div class="h-56 bg-[url('https://picsum.photos/id/1016/800/600')] bg-cover bg-center relative">
+                    <div class="absolute top-4 left-4 bg-white text-teal-900 text-xs font-bold px-3 py-1 rounded-3xl">ISSELTWALD</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-xl">Iseltwald</h3>
+                    <p class="text-sm text-slate-500">Charming wooden chalets right on the water. Starting point for the most popular lake shore hikes.</p>
+                    <div class="flex justify-between items-baseline mt-6 text-xs">
+                        <div><i class="fa-solid fa-route mr-1"></i> 12 trails start here</div>
+                        <button onclick="showVillageModal('Iseltwald')" class="text-teal-700 hover:text-teal-900 flex items-center text-xs font-medium">
+                            EXPLORE <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Village 2 -->
+            <div class="group bg-white rounded-3xl overflow-hidden shadow-sm card-hover">
+                <div class="h-56 bg-[url('https://picsum.photos/id/133/800/600')] bg-cover bg-center relative">
+                    <div class="absolute top-4 left-4 bg-white text-teal-900 text-xs font-bold px-3 py-1 rounded-3xl">BRIENZ</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-xl">Brienz</h3>
+                    <p class="text-sm text-slate-500">Famous for woodcarving and the picturesque old town. Gateway to the Jungfrau region hikes.</p>
+                    <div class="flex justify-between items-baseline mt-6 text-xs">
+                        <div><i class="fa-solid fa-route mr-1"></i> Lake loop trails</div>
+                        <button onclick="showVillageModal('Brienz')" class="text-teal-700 hover:text-teal-900 flex items-center text-xs font-medium">
+                            EXPLORE <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Village 3 -->
+            <div class="group bg-white rounded-3xl overflow-hidden shadow-sm card-hover">
+                <div class="h-56 bg-[url('https://picsum.photos/id/201/800/600')] bg-cover bg-center relative">
+                    <div class="absolute top-4 left-4 bg-white text-teal-900 text-xs font-bold px-3 py-1 rounded-3xl">RINGGENBERG</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-xl">Ringgenberg</h3>
+                    <p class="text-sm text-slate-500">Quiet village with castle ruins and stunning panoramic lake views. Perfect for sunrise hikes.</p>
+                    <div class="flex justify-between items-baseline mt-6 text-xs">
+                        <div><i class="fa-solid fa-route mr-1"></i> Castle trail</div>
+                        <button onclick="showVillageModal('Ringgenberg')" class="text-teal-700 hover:text-teal-900 flex items-center text-xs font-medium">
+                            EXPLORE <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Village 4 -->
+            <div class="group bg-white rounded-3xl overflow-hidden shadow-sm card-hover">
+                <div class="h-56 bg-[url('https://picsum.photos/id/1005/800/600')] bg-cover bg-center relative">
+                    <div class="absolute top-4 left-4 bg-white text-teal-900 text-xs font-bold px-3 py-1 rounded-3xl">GIESSBACH</div>
+                </div>
+                <div class="p-6">
+                    <h3 class="font-semibold text-xl">Giessbach Falls</h3>
+                    <p class="text-sm text-slate-500">Waterfalls cascading directly into the lake. Easy trail from Iseltwald or boat access.</p>
+                    <div class="flex justify-between items-baseline mt-6 text-xs">
+                        <div><i class="fa-solid fa-route mr-1"></i> Waterfall hike</div>
+                        <button onclick="showVillageModal('Giessbach')" class="text-teal-700 hover:text-teal-900 flex items-center text-xs font-medium">
+                            EXPLORE <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HIKING ROUTES SECTION -->
+    <section id="routes" class="bg-teal-50 py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="px-4 py-1 bg-teal-200 text-teal-800 rounded-3xl text-sm font-semibold">CURATED FOR YOU</span>
+                <h2 class="heading-font text-5xl font-bold text-teal-900 mt-3">Best hiking routes around Lake Brienz</h2>
+                <p class="mt-4 text-slate-600 max-w-lg mx-auto">All trails start or pass through Iseltwald, Brienz and the surrounding villages. Choose by difficulty, length or scenery.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Route Card 1 -->
+                <div class="bg-white rounded-3xl p-2 card-hover">
+                    <div class="bg-gradient-to-br from-teal-100 to-amber-100 h-72 rounded-3xl flex flex-col justify-end p-8 relative overflow-hidden">
+                        <div class="absolute top-6 right-6 bg-white rounded-2xl text-xs px-3 py-1 font-bold flex items-center shadow">EASY</div>
+                        <h3 class="text-3xl font-semibold text-teal-900">Iseltwald Lakeside Trail</h3>
+                        <div class="flex gap-x-4 text-sm mt-4">
+                            <div class="flex items-center"><i class="fa-solid fa-ruler mr-1"></i> 8.2 km</div>
+                            <div class="flex items-center"><i class="fa-solid fa-clock mr-1"></i> 3 hrs</div>
+                            <div class="flex items-center"><i class="fa-solid fa-arrow-trend-up mr-1"></i> 120 m ↑</div>
+                        </div>
+                        <p class="text-teal-800 mt-3 text-sm">Flat path hugging the lake shore with postcard views of the turquoise water and surrounding Alps.</p>
+                    </div>
+                    <div class="p-6 flex justify-between items-center">
+                        <div>
+                            <span class="text-xs uppercase font-medium">Starts in Iseltwald</span>
+                        </div>
+                        <button onclick="selectRoute(1)" class="text-teal-700 flex items-center font-medium">
+                            ADD TO TOUR <i class="fa-solid fa-plus ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Route Card 2 -->
+                <div class="bg-white rounded-3xl p-2 card-hover">
+                    <div class="bg-gradient-to-br from-blue-100 to-cyan-100 h-72 rounded-3xl flex flex-col justify-end p-8 relative overflow-hidden">
+                        <div class="absolute top-6 right-6 bg-white rounded-2xl text-xs px-3 py-1 font-bold flex items-center shadow">MODERATE</div>
+                        <h3 class="text-3xl font-semibold text-teal-900">Iseltwald to Giessbach Falls</h3>
+                        <div class="flex gap-x-4 text-sm mt-4">
+                            <div class="flex items-center"><i class="fa-solid fa-ruler mr-1"></i> 5.4 km round</div>
+                            <div class="flex items-center"><i class="fa-solid fa-clock mr-1"></i> 2.5 hrs</div>
+                            <div class="flex items-center"><i class="fa-solid fa-arrow-trend-up mr-1"></i> 280 m ↑</div>
+                        </div>
+                        <p class="text-teal-800 mt-3 text-sm">Forest path to the famous cascading waterfalls plunging into Lake Brienz.</p>
+                    </div>
+                    <div class="p-6 flex justify-between items-center">
+                        <div>
+                            <span class="text-xs uppercase font-medium">Most popular</span>
+                        </div>
+                        <button onclick="selectRoute(2)" class="text-teal-700 flex items-center font-medium">
+                            ADD TO TOUR <i class="fa-solid fa-plus ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Route Card 3 -->
+                <div class="bg-white rounded-3xl p-2 card-hover">
+                    <div class="bg-gradient-to-br from-emerald-100 to-teal-100 h-72 rounded-3xl flex flex-col justify-end p-8 relative overflow-hidden">
+                        <div class="absolute top-6 right-6 bg-white rounded-2xl text-xs px-3 py-1 font-bold flex items-center shadow">HARD</div>
+                        <h3 class="text-3xl font-semibold text-teal-900">Brienz Panorama Ridge</h3>
+                        <div class="flex gap-x-4 text-sm mt-4">
+                            <div class="flex items-center"><i class="fa-solid fa-ruler mr-1"></i> 11 km</div>
+                            <div class="flex items-center"><i class="fa-solid fa-clock mr-1"></i> 5 hrs</div>
+                            <div class="flex items-center"><i class="fa-solid fa-arrow-trend-up mr-1"></i> 680 m ↑</div>
+                        </div>
+                        <p class="text-teal-800 mt-3 text-sm">Epic views over the entire lake from the ridge above Brienz. Includes cable car option.</p>
+                    </div>
+                    <div class="p-6 flex justify-between items-center">
+                        <div>
+                            <span class="text-xs uppercase font-medium">Starts in Brienz</span>
+                        </div>
+                        <button onclick="selectRoute(3)" class="text-teal-700 flex items-center font-medium">
+                            ADD TO TOUR <i class="fa-solid fa-plus ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <a onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})" 
+                   class="inline-flex items-center text-teal-700 font-semibold text-lg border border-transparent hover:border-teal-700 rounded-3xl px-8 py-4">
+                    Want a custom route? Talk to our local host →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOKING SECTION -->
+    <section id="book" class="max-w-7xl mx-auto px-6 py-20 bg-gradient-to-b from-white to-teal-50">
+        <div class="grid lg:grid-cols-12 gap-12 items-start">
+            <!-- Left column info -->
+            <div class="lg:col-span-5">
+                <div class="sticky top-8">
+                    <span class="text-teal-600 text-sm font-semibold">GUIDED BY A LOCAL</span>
+                    <h2 class="heading-font text-5xl font-bold text-teal-900 mt-2 leading-none">Book your private hike with Hans from Iseltwald</h2>
+                    <p class="mt-6 text-xl text-slate-600">Hans knows every trail around Lake Brienz like the back of his hand. Small groups (max 8 people). Choose your meal package below.</p>
+                    
+                    <div class="flex items-center gap-x-6 mt-10 bg-white rounded-3xl p-6 shadow">
+                        <div class="w-16 h-16 bg-[url('https://picsum.photos/id/64/300/300')] bg-cover rounded-2xl flex-shrink-0"></div>
+                        <div>
+                            <div class="font-semibold">Hans Müller</div>
+                            <div class="text-teal-700 text-sm">Iseltwald local • 18 years guiding • Fluent English &amp; German</div>
+                            <div class="flex text-amber-400 text-lg mt-3">★★★★★</div>
+                        </div>
+                        <div class="ml-auto text-right">
+                            <div class="text-xs uppercase">Next tour</div>
+                            <div class="text-4xl font-semibold text-teal-900">Apr 8</div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-xs text-slate-500 mt-8 flex items-center">
+                        <i class="fa-solid fa-info-circle mr-2"></i>
+                        All tours include professional mountain guide, safety equipment, and free photos from the trail.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Booking cards -->
+            <div class="lg:col-span-7">
+                <div class="grid md:grid-cols-3 gap-6" id="package-options">
+                    <!-- Package 1 -->
+                    <div onclick="selectPackage(1)" id="package-1" class="package-card cursor-pointer bg-white border-2 border-transparent hover:border-teal-300 rounded-3xl p-6 shadow-sm">
+                        <div class="flex justify-between">
+                            <div>
+                                <span class="px-4 py-1 text-xs bg-slate-100 rounded-3xl">BASIC</span>
+                                <h4 class="font-semibold text-2xl mt-6">Without breakfast</h4>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-teal-600 text-xs">4–6 hrs</div>
+                                <div class="text-5xl font-semibold text-teal-900">CHF 120</div>
+                            </div>
+                        </div>
+                        <ul class="mt-8 space-y-4 text-sm">
+                            <li class="flex items-center"><i class="fa-solid fa-check mr-3 text-teal-500"></i> Guided hike along Lake Brienz</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check mr-3 text-teal-500"></i> Water &amp; snacks provided</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check mr-3 text-teal-500"></i> Max 8 hikers</li>
+                            <li class="flex items-center text-slate-400"><i class="fa-solid fa-xmark mr-3"></i> No meals included</li>
+                        </ul>
+                        <button onclick="event.stopImmediatePropagation(); bookNow(1)" class="mt-10 w-full bg-teal-700 text-white py-5 rounded-3xl text-sm font-semibold">SELECT &amp; BOOK</button>
+                    </div>
+                    
+                    <!-- Package 2 -->
+                    <div onclick="selectPackage(2)" id="package-2" class="package-card cursor-pointer bg-white border-2 border-transparent hover:border-teal-300 rounded-3xl p-6 shadow-sm relative">
+                        <div class="absolute -top-2 -right-2 bg-amber-400 text-white text-xs font-bold px-6 py-1 rounded-3xl rotate-12">POPULAR</div>
+                        <div class="flex justify-between">
+                            <div>
+                                <span class="px-4 py-1 text-xs bg-amber-100 text-amber-700 rounded-3xl">RECOMMENDED</span>
+                                <h4 class="font-semibold text-2xl mt-6">Including breakfast</h4>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-teal-600 text-xs">4–6 hrs</div>
+                                <div class="text-5xl font-semibold text-teal-900">CHF 150</div>
+                            </div>
+                        </div>
+                        <ul class="mt-8 space-y-4 text-sm">
+                            <li class="flex items-center"><i class="fa-solid fa-check mr-3 text-teal-500"></i> Guided hike along Lake Brienz</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check mr-3 text-teal-500"></i> Water &amp; snacks provided</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check mr-3 text-teal-500"></i> Swiss breakfast at viewpoint</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check mr-3 text-teal-500"></i> Max 8 hikers</li>
+                        </ul>
+                        <button onclick="event.stopImmediatePropagation(); bookNow(2)" class="mt-10 w-full bg-teal-700 text-white py-5 rounded-3xl text-sm font-semibold">SELECT &amp; BOOK</button>
+                    </div>
+                    
+                    <!-- Package 3 -->
+                    <div onclick="selectPackage(3)" id="package-3" class="package-card cursor-pointer bg-white border-2 border-transparent hover:border-teal-300 rounded-3xl p-6 shadow-sm">
+                        <div class="flex justify-between">
+                            <div>
+                                <span class="px-4 py-1 text-xs bg-emerald-100 text-emerald-700 rounded-3xl">FULL DAY</span>
+                                <h4 class="font-semibold text-2xl mt-6">Breakfast + Lunch</h4>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-teal-600 text-xs">5–7 hrs</div>
+                                <div class="text-5xl font-semibold text-teal-900">CHF 180</div>
+                            </div>
+                        </div>
+                        <ul class="mt-8 space-y-4 text-sm">
+                            <li class="flex items-center"><i class="fa-solid fa-check mr-3 text-teal-500"></i> Guided hike along Lake Brienz</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check mr-3 text-teal-500"></i> Water &amp; snacks provided</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check mr-3 text-teal-500"></i> Swiss breakfast + picnic lunch</li>
+                            <li class="flex items-center"><i class="fa-solid fa-check mr-3 text-teal-500"></i> Max 8 hikers</li>
+                        </ul>
+                        <button onclick="event.stopImmediatePropagation(); bookNow(3)" class="mt-10 w-full bg-teal-700 text-white py-5 rounded-3xl text-sm font-semibold">SELECT &amp; BOOK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOKING MODAL -->
+    <div onclick="if(event.target.id === 'booking-modal')hideModal()" id="booking-modal" class="hidden fixed inset-0 bg-black/70 z-[9999] flex items-center justify-center">
+        <div onclick="event.stopImmediatePropagation()" class="modal bg-white rounded-3xl max-w-lg w-full mx-4 overflow-hidden">
+            <div class="px-8 pt-8">
+                <div class="flex justify-between items-center">
+                    <h3 id="modal-package-name" class="text-3xl font-semibold">Booking</h3>
+                    <button onclick="hideModal()" class="text-4xl text-slate-300 hover:text-slate-500">×</button>
+                </div>
+                
+                <div class="mt-8">
+                    <label class="text-xs uppercase font-medium text-slate-500">Tour date</label>
+                    <select id="modal-date" class="w-full border rounded-2xl px-4 py-4 text-lg mt-2">
+                        <option>April 8, 2026 • 09:00 (Iseltwald start)</option>
+                        <option>April 9, 2026 • 09:00 (Iseltwald start)</option>
+                        <option>April 12, 2026 • 09:00 (Brienz start)</option>
+                        <option>April 15, 2026 • 08:30 (Iseltwald start)</option>
+                    </select>
+                    
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div>
+                            <label class="text-xs uppercase font-medium text-slate-500">Number of hikers</label>
+                            <div class="flex items-center border rounded-2xl px-4 mt-2">
+                                <button onclick="changeCount(-1)" class="text-3xl w-8 h-8 flex items-center justify-center">-</button>
+                                <input id="modal-count" type="text" value="2" class="text-center text-3xl font-semibold flex-1 outline-none">
+                                <button onclick="changeCount(1)" class="text-3xl w-8 h-8 flex items-center justify-center">+</button>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="text-xs uppercase font-medium text-slate-500">Total price</label>
+                            <div id="modal-total" class="text-5xl font-semibold text-teal-900 mt-3">CHF 300</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-10 bg-teal-50 px-8 py-8 flex items-center justify-between">
+                <div class="text-sm">
+                    <i class="fa-solid fa-lock mr-1"></i> Secure booking • Free cancellation up to 48h
+                </div>
+                <button onclick="confirmBooking()" 
+                        class="bg-teal-700 hover:bg-teal-800 text-white px-12 py-6 rounded-3xl text-xl font-semibold flex items-center">
+                    CONFIRM BOOKING
+                    <i class="fa-solid fa-arrow-right ml-3"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TIPS SECTION -->
+    <section id="tips" class="max-w-7xl mx-auto px-6 py-20">
+        <div class="grid md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <h2 class="heading-font text-5xl font-semibold text-teal-900">Essential hiking tips for Lake Brienz</h2>
+                <p class="mt-6 text-slate-600">Everything you need to know before you lace up your boots.</p>
+            </div>
+            <div class="md:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="border border-slate-200 rounded-3xl p-8">
+                    <div class="text-4xl mb-6">⛅</div>
+                    <h4 class="font-semibold">Best time to hike</h4>
+                    <p class="mt-4">May–October. Mornings are perfect — fewer crowds and magical light over the lake.</p>
+                </div>
+                <div class="border border-slate-200 rounded-3xl p-8">
+                    <div class="text-4xl mb-6">👟</div>
+                    <h4 class="font-semibold">What to bring</h4>
+                    <ul class="mt-4 space-y-3 text-sm">
+                        <li class="flex items-start"><span class="text-teal-700 mr-3">•</span> Good hiking shoes</li>
+                        <li class="flex items-start"><span class="text-teal-700 mr-3">•</span> Rain jacket (weather changes fast)</li>
+                        <li class="flex items-start"><span class="text-teal-700 mr-3">•</span> Binoculars for chamois spotting</li>
+                        <li class="flex items-start"><span class="text-teal-700 mr-3">•</span> Reusable water bottle</li>
+                    </ul>
+                </div>
+                <div class="border border-slate-200 rounded-3xl p-8">
+                    <div class="text-4xl mb-6">🚤</div>
+                    <h4 class="font-semibold">How to get there</h4>
+                    <p class="mt-4">Train from Bern to Brienz (45 min) or boat from Interlaken. Iseltwald is just a 10-minute walk from the boat dock.</p>
+                    <a href="#" class="mt-6 inline-block text-xs underline">View public transport timetable →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / FINAL CTA -->
+    <footer class="bg-teal-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div>
+                    <div class="flex items-center gap-x-3 text-white mb-4">
+                        <div class="w-9 h-9 bg-white rounded-2xl flex items-center justify-center text-teal-900 text-3xl">🏔️</div>
+                        <h1 class="heading-font text-4xl">Brienz Trails</h1>
+                    </div>
+                    <p class="text-teal-300">© 2026 • Your local hiking experts in the Bernese Oberland</p>
+                </div>
+                
+                <div class="text-center md:text-right mt-8 md:mt-0">
+                    <p class="text-sm text-teal-300">Guided hikes • Lake Brienz • Iseltwald • Brienz • Giessbach</p>
+                    <div class="flex justify-center md:justify-end gap-x-8 mt-6 text-2xl">
+                        <i class="fa-brands fa-instagram"></i>
+                        <i class="fa-brands fa-facebook"></i>
+                        <i class="fa-solid fa-envelope"></i>
+                    </div>
+                    <p onclick="window.location.reload()" class="text-xs mt-10 text-teal-400 cursor-pointer">Made as a complete single-file website • Copy &amp; paste ready</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * CODE FAST MODE - FULL WEBSITE READY TO COPY
+         * Tailwind + interactive booking + routes
+         * Just save as index.html and open!
+         */
+        
+        function initializeTailwind() {
+            return {
+                config(userConfig = {}) {
+                    return {
+                        content: [],
+                        theme: {
+                            extend: {},
+                        },
+                        plugins: [],
+                        ...userConfig,
+                    }
+                },
+                theme: {
+                    extend: {},
+                },
+            }
+        }
+        
+        function init() {
+            return {
+                config(userConfig = {}) {
+                    return this.defaultConfig ? this.defaultConfig() : this.config(userConfig)
+                },
+                defaultConfig() {
+                    return this.config()
+                },
+            }
+        }
+        
+        // Tailwind initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            return init().config({
+                theme: {
+                    extend: {},
+                },
+            })
+        })
+        
+        // Mobile menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            const icon = document.getElementById('menu-icon')
+            if (menu.classList.contains('hidden')) {
+                menu.style.display = 'flex'
+                icon.classList.replace('fa-bars', 'fa-xmark')
+            } else {
+                menu.style.display = 'none'
+                icon.classList.replace('fa-xmark', 'fa-bars')
+            }
+        }
+        
+        // Package selection
+        let selectedPackage = null
+        let basePrice = 0
+        
+        function selectPackage(num) {
+            // Remove active state from all
+            document.querySelectorAll('.package-card').forEach(el => {
+                el.classList.remove('border-teal-600', 'ring-2', 'ring-teal-200')
+            })
+            // Activate the clicked one
+            const card = document.getElementById('package-' + num)
+            card.classList.add('border-teal-600', 'ring-2', 'ring-teal-200')
+            selectedPackage = num
+            
+            if (num === 1) basePrice = 120
+            else if (num === 2) basePrice = 150
+            else if (num === 3) basePrice = 180
+        }
+        
+        function bookNow(num) {
+            // If not already selected, select it
+            if (selectedPackage !== num) selectPackage(num)
+            
+            // Show modal
+            const modal = document.getElementById('booking-modal')
+            modal.classList.remove('hidden')
+            modal.style.display = 'flex'
+            
+            // Set title
+            const titles = {
+                1: 'Without breakfast – CHF 120',
+                2: 'Including breakfast – CHF 150',
+                3: 'Breakfast &amp; lunch – CHF 180'
+            }
+            document.getElementById('modal-package-name').innerHTML = titles[num]
+            
+            // Calculate initial total
+            updateTotal()
+        }
+        
+        function hideModal() {
+            const modal = document.getElementById('booking-modal')
+            modal.classList.add('hidden')
+            modal.style.display = 'none'
+            selectedPackage = null
+        }
+        
+        function changeCount(delta) {
+            const input = document.getElementById('modal-count')
+            let count = parseInt(input.value) || 1
+            count = Math.max(1, Math.min(8, count + delta)) // max 8 people
+            input.value = count
+            updateTotal()
+        }
+        
+        function updateTotal() {
+            const count = parseInt(document.getElementById('modal-count').value) || 1
+            const totalEl = document.getElementById('modal-total')
+            totalEl.textContent = `CHF ${basePrice * count}`
+        }
+        
+        function confirmBooking() {
+            const count = document.getElementById('modal-count').value
+            const date = document.getElementById('modal-date').value
+            
+            hideModal()
+            
+            // Success animation
+            const successHTML = `
+            <div class="fixed inset-0 bg-black/80 flex items-center justify-center z-[10000]">
+                <div class="bg-white rounded-3xl text-center p-10 max-w-sm mx-4">
+                    <i class="fa-solid fa-circle-check text-8xl text-emerald-500 mb-6"></i>
+                    <h2 class="text-3xl font-semibold mb-3">Booking confirmed!</h2>
+                    <p class="text-slate-600">You are going hiking with Hans on <strong>${date}</strong> with ${count} person(s).</p>
+                    <p class="mt-8 text-sm">A confirmation email has been sent to you.</p>
+                    <button onclick="this.closest('.fixed').remove()" class="mt-8 bg-teal-700 text-white px-12 py-5 rounded-3xl">BACK TO WEBSITE</button>
+                </div>
+            </div>`
+            
+            const div = document.createElement('div')
+            div.innerHTML = successHTML
+            document.body.appendChild(div)
+            
+            // Reset selection
+            selectedPackage = null
+            document.querySelectorAll('.package-card').forEach(el => el.classList.remove('border-teal-600', 'ring-2', 'ring-teal-200'))
+        }
+        
+        // Fake route selection
+        function selectRoute(id) {
+            const messages = {
+                1: "✅ Added Iseltwald Lakeside Trail to your tour!",
+                2: "✅ Added Iseltwald to Giessbach Falls!",
+                3: "✅ Added Brienz Panorama Ridge!"
+            }
+            const toast = document.createElement('div')
+            toast.style.cssText = 'position:fixed; bottom:20px; left:20px; background:#0f766e; color:white; padding:20px 24px; border-radius:9999px; box-shadow:25px 25px 30px -10px rgb(15 118 110); z-index:99999; display:flex; align-items:center; gap:12px;'
+            toast.innerHTML = `${messages[id]} <span onclick="this.parentElement.remove()" class="ml-6 cursor-pointer text-xl">✕</span>`
+            document.body.appendChild(toast)
+            
+            setTimeout(() => {
+                if (toast.parentElement) toast.remove()
+            }, 3800)
+            
+            // Scroll to booking section after adding route
+            setTimeout(() => {
+                document.getElementById('book').scrollIntoView({ behavior: 'smooth' })
+            }, 800)
+        }
+        
+        // Village modals (demo)
+        function showVillageModal(name) {
+            const modalContent = {
+                Iseltwald: `<h2 class="text-4xl font-semibold">Iseltwald</h2><p class="mt-6">The jewel of Lake Brienz. Start your hike right at the pier and enjoy the crystal-clear water at every step.</p>`,
+                Brienz: `<h2 class="text-4xl font-semibold">Brienz</h2><p class="mt-6">Home of traditional woodcarvers. Hikes here offer the best panoramic views over the whole lake.</p>`,
+                Ringgenberg: `<h2 class="text-4xl font-semibold">Ringgenberg</h2><p class="mt-6">Quiet and romantic. The castle ruins are a perfect photo spot during your hike.</p>`,
+                Giessbach: `<h2 class="text-4xl font-semibold">Giessbach Falls</h2><p class="mt-6">One of the most photographed spots in Switzerland. 300 m waterfall directly into the lake.</p>`
+            }
+            
+            const html = `
+            <div onclick="if(event.target.id==='village-overlay')this.remove()" id="village-overlay" class="fixed inset-0 bg-black/70 z-[99999] flex items-center justify-center">
+                <div onclick="event.stopImmediatePropagation()" class="bg-white rounded-3xl max-w-xl w-full mx-4 p-10">
+                    ${modalContent[name] || '<h2>Beautiful village on Lake Brienz</h2>'}
+                    <button onclick="this.closest('.fixed').remove()" class="mt-8 w-full py-6 text-lg bg-teal-700 text-white rounded-3xl">Close &amp; continue exploring</button>
+                </div>
+            </div>`
+            
+            const el = document.createElement('div')
+            el.innerHTML = html
+            document.body.append(el)
+        }
+        
+        console.log('%c✅ Brienz Trails website fully loaded – Code Fast Mode complete!', 'background:#0f766e;color:white;padding:2px 6px;border-radius:2px')
+    </script>
+</body>
+</html>
